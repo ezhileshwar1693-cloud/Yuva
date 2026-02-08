@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Fairytale 🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:
+    radial-gradient(circle at center, #3a2a14 0%, #0b0702 60%, #000 100%);
+  font-family: "Georgia", serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* 🕯️ Ballroom Glow */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center,
+    rgba(255,215,120,0.25),
+    transparent 60%);
+  animation: glow 6s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes glow{
+  0%,100%{opacity:.5}
+  50%{opacity:.9}
+}
+
+/* 💌 Card */
+.card{
+  background:rgba(255,255,255,.12);
+  border:2px solid gold;
+  border-radius:28px;
+  padding:32px;
+  width:340px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(255,215,0,.6);
+  z-index:10;
+}
+
+h1{color:gold;font-size:22px}
+p{font-size:16px;line-height:1.6}
+
+button{
+  padding:10px 24px;
+  border-radius:25px;
+  border:none;
+  font-size:15px;
+  cursor:pointer;
+  margin:8px;
+  transition:.3s;
+}
+
+.next,#yes{
+  background:gold;
+  font-weight:bold;
+}
+
+#yes:hover{transform:scale(1.15)}
+#no{position:absolute;background:#bbb}
+
+/* 🌹 Roses */
+.rose{
+  position:absolute;
+  font-size:22px;
+  animation:roseUp 9s linear infinite;
+}
+
+/* 🦋 Butterflies */
+.butterfly{
+  position:absolute;
+  font-size:22px;
+  animation:butterflyUp 11s ease-in-out infinite;
+}
+
+/* ✨ Sparkles */
+.sparkle{
+  position:fixed;
+  border-radius:50%;
+  animation:sparkleUp 4s linear forwards;
+}
+
+.soft{
+  width:6px;height:6px;
+  background:gold;
+  box-shadow:0 0 8px gold;
+  opacity:.5;
+}
+
+.bright{
+  width:12px;height:12px;
+  background:radial-gradient(circle,#fff6b0,gold);
+  box-shadow:
+    0 0 20px gold,
+    0 0 45px gold,
+    0 0 70px rgba(255,215,0,.9);
+  opacity:1;
+}
+
+/* Animations */
+@keyframes roseUp{
+  0%{transform:translateY(100vh);opacity:0}
+  20%{opacity:1}
+  100%{transform:translateY(-20vh) rotate(360deg);opacity:0}
+}
+
+@keyframes butterflyUp{
+  0%{transform:translate(0,100vh);opacity:0}
+  30%{opacity:1}
+  50%{transform:translate(-40px,40vh)}
+  75%{transform:translate(40px,10vh)}
+  100%{transform:translate(0,-20vh);opacity:0}
+}
+
+@keyframes sparkleUp{
+  0%{transform:translateY(100vh) scale(.4);opacity:0}
+  30%{opacity:1}
+  100%{transform:translateY(-20vh) scale(1.6);opacity:0}
+}
+
+.final img{
+  width:210px;
+  border-radius:20px;
+  border:3px solid gold;
+  margin-top:18px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="yeh-mausam-yeh-raatein.mp3" loop></audio>
+
+<div class="card" id="box">
+  <h1>HI, Yuvashree 🌹</h1>
+  <p>Can I ask you something cute first? 😊</p>
+  <button class="next" onclick="q2()">Yes 💛</button>
+</div>
+
+<script>
+const box=document.getElementById("box");
+const music=document.getElementById("music");
+let sparkleMode="soft";
+
+/* 🎵 Music on first touch */
+document.body.addEventListener("click",()=>music.play(),{once:true});
+
+/* Questions */
+function q2(){
+box.innerHTML=`
+<h1>✨ Question</h1>
+<p>Do you believe in fairytales?</p>
+<button class="next" onclick="q3()">I do 💫</button>`;
+}
+
+function q3(){
+box.innerHTML=`
+<h1>🌹 Question</h1>
+<p>Would you like to be part of my little fairytale?</p>
+<button class="next" onclick="q4()">Yes 😊</button>
+<button id="no" onclick="this.style.opacity=0">No 🙈</button>`;
+}
+
+function q4(){
+box.innerHTML=`
+<h1>💖 Moment of Truth</h1>
+<p>Will you be my Valentine, Yuvashree?</p>
+<button id="yes" onclick="yesClicked()">Yes 💖</button>
+<button id="no" onmouseover="runNo()">No 😝</button>`;
+}
+
+function yesClicked(){
+sparkleMode="bright";
+sparkleBurst();
+box.innerHTML=`
+<h1>🕯️ My Love 🕯️</h1>
+<p>
+Happy Valentine’s Day, my love ❤️<br><br>
+With you, even ordinary days feel special.<br><br>
+Your smile is my favorite habit,<br>
+and your presence is my comfort.<br><br>
+<b>I choose you —<br>
+Today, Tomorrow and Always Forever ♾️🫶🏼💞🌹✨</b>
+</p>
+<img src="your-photo.jpg">`;
+}
+
+/* NO runs */
+function runNo(){
+const n=document.getElementById("no");
+n.style.left=Math.random()*(innerWidth-120)+"px";
+n.style.top=Math.random()*(innerHeight-60)+"px";
+}
+
+/* 🌹 Roses */
+setInterval(()=>{
+const r=document.createElement("div");
+r.className="rose";
+r.innerHTML="🌹";
+r.style.left=Math.random()*100+"vw";
+document.body.appendChild(r);
+setTimeout(()=>r.remove(),9000);
+},500);
+
+/* 🦋 Butterflies */
+setInterval(()=>{
+const b=document.createElement("div");
+b.className="butterfly";
+b.innerHTML="🦋";
+b.style.left=Math.random()*100+"vw";
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),11000);
+},900);
+
+/* ✨ Sparkles */
+function sparkle(){
+const s=document.createElement("div");
+s.className=`sparkle ${sparkleMode}`;
+s.style.left=Math.random()*100+"vw";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),4000);
+}
+setInterval(sparkle,300);
+
+/* 💥 YES burst */
+function sparkleBurst(){
+for(let i=0;i<40;i++){
+setTimeout(sparkle,i*50);
+}
+}
+</script>
+
+</body>
+</html>
